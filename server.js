@@ -1,13 +1,15 @@
 const express = require('express');
-const path = require('path'); // Import the 'path' module
+const path = require('path');
 const app = express();
-const port = process.env.PORT || 3000; // Use environment variable for port
+const port = process.env.PORT || 3000;
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// Serve static files (e.g., HTML, CSS)
+// Serve static files (e.g., HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
+
+// Explicitly handle the root URL
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'registration-form.html'));
+});
 
 // Handle form submission
 app.post('/submit', (req, res) => {
